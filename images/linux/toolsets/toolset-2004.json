@@ -158,24 +158,7 @@
     },
     "brew": [{ "name": "zstd" }],
     "docker": {
-        "images": [
-            "alpine:3.11",
-            "alpine:3.12",
-            "alpine:3.13",
-            "buildpack-deps:stretch",
-            "buildpack-deps:buster",
-            "debian:9",
-            "debian:10",
-            "node:10",
-            "node:12",
-            "node:14",
-            "node:10-alpine",
-            "node:12-alpine",
-            "node:14-alpine",
-            "ubuntu:16.04",
-            "ubuntu:18.04",
-            "ubuntu:20.04"
-        ]
+        "images": []
     },
     "pipx": [
         {

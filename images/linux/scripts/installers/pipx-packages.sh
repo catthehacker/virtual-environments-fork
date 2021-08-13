@@ -8,6 +8,8 @@
 source "$HELPER_SCRIPTS"/install.sh
 
 export PATH="$PATH:/opt/pipx_bin"
+export LANG="C.UTF-8"
+export LC_ALL="C.UTF-8"
 
 pipx_packages=$(get_toolset_value ".pipx[] .package")
 
@@ -24,7 +26,7 @@ for package in $pipx_packages; do
         # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
         # Install ansible into an existing ansible-core Virtual Environment
         if [[ $package == "ansible-core" ]]; then
-            pipx inject $package ansible
+        	pipx inject $package ansible
         fi
     fi
 

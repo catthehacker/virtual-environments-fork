@@ -3,27 +3,27 @@ param (
     $OutputDirectory
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
 
 Import-Module MarkdownPS
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Android.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Browsers.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.CachedTools.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Common.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Databases.psm1") -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Android.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Browsers.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.CachedTools.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Common.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Databases.psm1') -DisableNameChecking
 Import-Module "$PSScriptRoot/../helpers/SoftwareReport.Helpers.psm1" -DisableNameChecking
 Import-Module "$PSScriptRoot/../helpers/Common.Helpers.psm1" -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Java.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Rust.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.Tools.psm1") -DisableNameChecking
-Import-Module (Join-Path $PSScriptRoot "SoftwareReport.WebServers.psm1") -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Java.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Rust.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.Tools.psm1') -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'SoftwareReport.WebServers.psm1') -DisableNameChecking
 
 # Restore file owner in user profile
 Restore-UserOwner
 
 Update-Environment
 
-$markdown = ""
+$markdown = ''
 
 $OSName = Get-OSName
 $markdown += New-MDHeader "$OSName" -Level 1
@@ -34,8 +34,8 @@ $markdown += New-MDList -Style Unordered -Lines @(
     "Image Version: $env:IMAGE_VERSION"
 )
 
-$markdown += New-MDHeader "Installed Software" -Level 2
-$markdown += New-MDHeader "Language and Runtime" -Level 3
+$markdown += New-MDHeader 'Installed Software' -Level 2
+$markdown += New-MDHeader 'Language and Runtime' -Level 3
 
 $runtimesList = @(
     (Get-BashVersion),
@@ -51,20 +51,15 @@ $runtimesList = @(
     (Get-Python3Version),
     (Get-RubyVersion),
     (Get-SwiftVersion),
-    (Get-JuliaVersion)
-) 
-
-if (Test-IsUbuntu20) {
-    $runtimesList += (Get-LLVMInfo)
-}
-else {
-    $runtimesList += (Get-ClangVersions)
-    $runtimesList += (Get-ClangFormatVersions)
-}
+    (Get-JuliaVersion),
+    (Get-KotlinVersion),
+    (Get-ClangVersions),
+    (Get-ClangFormatVersions)
+)
 
 $markdown += New-MDList -Style Unordered -Lines ($runtimesList | Sort-Object)
 
-$markdown += New-MDHeader "Package Management" -Level 3
+$markdown += New-MDHeader 'Package Management' -Level 3
 
 $packageManagementList = @(
     (Get-HomebrewVersion),
@@ -86,11 +81,11 @@ if (-not (Test-IsUbuntu16)) {
 }
 
 $markdown += New-MDList -Style Unordered -Lines ($packageManagementList | Sort-Object)
-$markdown += New-MDHeader "Environment variables" -Level 4
+$markdown += New-MDHeader 'Environment variables' -Level 4
 $markdown += Build-PackageManagementEnvironmentTable | New-MDTable
 $markdown += New-MDNewLine
 
-$markdown += New-MDHeader "Project Management" -Level 3
+$markdown += New-MDHeader 'Project Management' -Level 3
 $projectManagementList = @(
     (Get-AntVersion),
     (Get-GradleVersion),
@@ -105,7 +100,7 @@ if (Test-IsUbuntu20) {
 }
 $markdown += New-MDList -Style Unordered -Lines ($projectManagementList | Sort-Object)
 
-$markdown += New-MDHeader "Tools" -Level 3
+$markdown += New-MDHeader 'Tools' -Level 3
 $toolsList = @(
     #(Get-AnsibleVersion), doesn't work well in Docker
     (Get-AptFastVersion),
@@ -162,7 +157,7 @@ if (Test-IsUbuntu20) {
 
 $markdown += New-MDList -Style Unordered -Lines ($toolsList | Sort-Object)
 
-$markdown += New-MDHeader "CLI Tools" -Level 3
+$markdown += New-MDHeader 'CLI Tools' -Level 3
 $markdown += New-MDList -Style Unordered -Lines (@(
         (Get-AlibabaCloudCliVersion),
         (Get-AWSCliVersion),
@@ -180,12 +175,12 @@ $markdown += New-MDList -Style Unordered -Lines (@(
     ) | Sort-Object
 )
 
-$markdown += New-MDHeader "Java" -Level 3
+$markdown += New-MDHeader 'Java' -Level 3
 $markdown += Get-JavaVersions | New-MDTable
 $markdown += New-MDNewLine
 
 if (Test-IsUbuntu20) {
-    $markdown += New-MDHeader "GraalVM" -Level 3
+    $markdown += New-MDHeader 'GraalVM' -Level 3
     $markdown += Build-GraalVMTable | New-MDTable
     $markdown += New-MDNewLine
 }
@@ -194,7 +189,7 @@ if (-not (Test-IsUbuntu16)) {
     $markdown += Build-PHPSection
 }
 
-$markdown += New-MDHeader "Haskell" -Level 3
+$markdown += New-MDHeader 'Haskell' -Level 3
 $markdown += New-MDList -Style Unordered -Lines (@(
         (Get-GHCVersion),
         (Get-GHCupVersion),
@@ -203,7 +198,7 @@ $markdown += New-MDList -Style Unordered -Lines (@(
     ) | Sort-Object
 )
 
-$markdown += New-MDHeader "Rust Tools" -Level 3
+$markdown += New-MDHeader 'Rust Tools' -Level 3
 $markdown += New-MDList -Style Unordered -Lines (@(
         (Get-RustVersion),
         (Get-RustupVersion),
@@ -212,7 +207,7 @@ $markdown += New-MDList -Style Unordered -Lines (@(
     ) | Sort-Object
 )
 
-$markdown += New-MDHeader "Packages" -Level 4
+$markdown += New-MDHeader 'Packages' -Level 4
 $markdown += New-MDList -Style Unordered -Lines (@(
         (Get-BindgenVersion),
         (Get-CargoAuditVersion),
@@ -223,7 +218,7 @@ $markdown += New-MDList -Style Unordered -Lines (@(
     ) | Sort-Object
 )
 
-$markdown += New-MDHeader "Browsers and Drivers" -Level 3
+$markdown += New-MDHeader 'Browsers and Drivers' -Level 3
 
 $browsersAndDriversList = @(
     (Get-ChromeVersion),
@@ -234,16 +229,16 @@ $browsersAndDriversList = @(
 )
 
 $markdown += New-MDList -Style Unordered -Lines $browsersAndDriversList
-$markdown += New-MDHeader "Environment variables" -Level 4
+$markdown += New-MDHeader 'Environment variables' -Level 4
 $markdown += Build-BrowserWebdriversEnvironmentTable | New-MDTable
 $markdown += New-MDNewLine
 
-$markdown += New-MDHeader ".NET Core SDK" -Level 3
+$markdown += New-MDHeader '.NET Core SDK' -Level 3
 $markdown += New-MDList -Style Unordered -Lines @(
     (Get-DotNetCoreSdkVersions)
 )
 
-$markdown += New-MDHeader "Databases" -Level 3
+$markdown += New-MDHeader 'Databases' -Level 3
 $markdown += New-MDList -Style Unordered -Lines (@(
         (Get-PostgreSqlVersion),
         (Get-MongoDbVersion),
@@ -254,38 +249,38 @@ $markdown += New-MDList -Style Unordered -Lines (@(
 $markdown += Build-MySQLSection
 $markdown += Build-MSSQLToolsSection
 
-$markdown += New-MDHeader "Cached Tools" -Level 3
+$markdown += New-MDHeader 'Cached Tools' -Level 3
 $markdown += Build-CachedToolsSection
 
-$markdown += New-MDHeader "Environment variables" -Level 4
+$markdown += New-MDHeader 'Environment variables' -Level 4
 $markdown += Build-GoEnvironmentTable | New-MDTable
 $markdown += New-MDNewLine
 
-$markdown += New-MDHeader "PowerShell Tools" -Level 3
+$markdown += New-MDHeader 'PowerShell Tools' -Level 3
 $markdown += New-MDList -Lines (Get-PowershellVersion) -Style Unordered
 
-$markdown += New-MDHeader "PowerShell Modules" -Level 4
+$markdown += New-MDHeader 'PowerShell Modules' -Level 4
 $markdown += Get-PowerShellModules | New-MDTable
 $markdown += New-MDNewLine
-$markdown += New-MDHeader "Az PowerShell Modules" -Level 4
+$markdown += New-MDHeader 'Az PowerShell Modules' -Level 4
 $markdown += New-MDList -Style Unordered -Lines @(
     (Get-AzModuleVersions)
 )
 
 $markdown += Build-WebServersSection
 
-$markdown += New-MDHeader "Android" -Level 3
+$markdown += New-MDHeader 'Android' -Level 3
 $markdown += Build-AndroidTable | New-MDTable
 $markdown += New-MDNewLine
-$markdown += New-MDHeader "Environment variables" -Level 4
+$markdown += New-MDHeader 'Environment variables' -Level 4
 $markdown += Build-AndroidEnvironmentTable | New-MDTable
 $markdown += New-MDNewLine
 
-$markdown += New-MDHeader "Cached Docker images" -Level 3
+$markdown += New-MDHeader 'Cached Docker images' -Level 3
 $markdown += Get-CachedDockerImagesTableData | New-MDTable
 $markdown += New-MDNewLine
 
-$markdown += New-MDHeader "Installed apt packages" -Level 3
+$markdown += New-MDHeader 'Installed apt packages' -Level 3
 $markdown += Get-AptPackages | New-MDTable
 
 $markdown | Out-File -FilePath "${OutputDirectory}/Ubuntu-Readme.md"

@@ -26,46 +26,171 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build ${{ matrix.version }}
+      - name: Clean runner
         run: |
-          echo "::group::cleanup"
+          set -x
+          PACKER_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/packer | jq -r .current_version)
+          sudo chown ${USER} -R /mnt
+          wget -qO "/mnt/packer_${PACKER_VERSION}_linux_amd64.zip" "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
+          unzip -qq "/mnt/packer_${PACKER_VERSION}_linux_amd64.zip" -d /mnt
+          rm -f "/mnt/packer_${PACKER_VERSION}_linux_amd64.zip"
+          echo "::group::installed"
+          apt list --installed
+          echo "::endgroup::"
+          echo "::group::packages"
+          #
+          sudo apt-get -yq update
+          # apt-get packages to uninstall
+          packages=(
+            ant
+            ant-optional
+            apache2
+            azure-cli
+            mongodb-org
+            r-base
+            ruby-full
+            postgresql
+            postgresql-client
+            libpq-dev
+            chrpath
+            libssl-dev
+            libxft-dev
+            libfreetype6
+            libfreetype6-dev
+            libfontconfig1
+            libfontconfig1-dev
+            nginx
+            mssql-tools
+            unixodbc-dev
+            mysql-client
+            mysql-server
+            libmysqlclient-dev
+            mono-complete
+            nuget
+            mercurial
+            hhvm
+            ghc*
+            gh
+            gfortran*
+            g++*
+            esl-erlang
+            dotnet-sdk*
+            podman
+            buildah
+            skopeo
+            google-cloud-sdk
+            clang-*
+            lldb-*
+            lld-*
+            clang-format-*
+          )
+          #
+          sudo apt-get remove --allow-remove-essential -y ${packages[@]}
+          echo "::endgroup::"
+          echo "::group::paths"
+          # paths to rm -rf
+          paths=(
+              /opt
+              /tmp/*
+              /etc/skel
+              /usr/local
+              /usr/lib/llvm*
+              /usr/lib/mono
+              /usr/lib/gcc
+              /usr/lib/rustlib
+              /usr/share/sbt
+              /usr/share/ant
+              /usr/share/java
+              /usr/share/az_*
+              /usr/share/mono*
+              /usr/share/php*
+              /usr/share/rust
+              /usr/share/swift
+              /usr/share/gradle*
+              /usr/share/dotnet
+              /usr/share/miniconda
+              /usr/share/ImageMagick*
+              /usr/share/apache-maven*
+              /usr/local/bin
+              /usr/local/julia*
+              /usr/local/aws-cli
+              /usr/local/graalvm
+              /usr/local/cmake*
+              /usr/local/sqlpackage
+              /usr/local/share/boost
+              /usr/local/share/chrome_driver
+              /usr/local/share/gecko_driver
+              /usr/local/share/chromium
+              /usr/local/share/phantomjs*
+              /usr/local/share/powershell
+              /usr/local/share/cmake-*
+              /usr/local/share/vcpkg
+              /usr/local/share/.cache
+              /usr/local/lib/lein
+              /usr/local/lib/android
+              /usr/local/lib/heroku
+              /usr/local/lib/node_modules
+              /usr/local/lib
+              /usr/lib/node_modules
+              /usr/lib/jvm
+              /home/linuxbrew
+          )
+          #
+          sudo rm -rf ${paths[@]}
+          echo "::endgroup::"
           sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          sudo rm -rf /usr/share/dotnet/
-          sudo rm -rf "$ANDROID_SDK_ROOT"
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf "$SWIFT_PATH"
-          sudo rm -rf /usr/share/swift
-          sudo rm -rf /usr/share/rust
-          sudo rm -rf /usr/local/share/vcpkg
-          sudo rm -rf /usr/share/miniconda
-          sudo rm -rf /usr/lib/node_modules
-          sudo rm -rf /usr/share/sbt
-          sudo rm -rf /usr/share/java
-          #sudo docker system prune -a -f
-          sudo rm -rf /home/linuxbrew
-          #ver=$(echo "20.04" | sed 's|\.||g')
-          #wget -qO "toolset.json" "https://raw.githubusercontent.com/actions/virtual-environments/main/images/linux/toolsets/toolset-${ver}.json"
-          #common_packages=$(jq -r ".apt.common_packages[]" "toolset.json")
-          #cmd_packages=$(jq -r ".apt.cmd_packages[]" "toolset.json")
-          #sudo apt-get purge -f -y ant
-          #sudo apt-get purge -f -y ${common_packages[@]}
-          #sudo apt-get purge -f -y ${cmd_packages[@]}
+          echo "::group::files"
+          # files to rm -f
+          files=(
+            /swapfile
+            /usr/bin/yq
+            /usr/bin/composer
+            /usr/bin/google-chrome
+            /usr/bin/chromium-browser
+            /usr/bin/chromium
+            /usr/local/bin/aliyun
+            /usr/local/bin/azcopy
+            /usr/local/bin/bicep
+            /usr/local/bin/oras
+            /usr/local/bin/bazel
+            /usr/local/bin/vercel
+            /usr/local/bin/rebar3
+            /usr/local/bin/now
+            /usr/local/bin/oc*
+            /usr/local/bin/terraform*
+            /usr/local/bin/minikube
+            /usr/local/bin/kubectl
+            /usr/local/bin/kustomize
+            /usr/local/bin/kind
+            /usr/local/bin/pulumi*
+            /usr/local/bin/phpunit
+          )
+          #
+          sudo rm -vf ${files[@]}
+          echo "::endgroup::"
+          echo "::group::misc"
+          #sudo ./images/linux/scripts/uninstallers/php.sh
+          #
+          sudo docker system prune -a -f
+          #
           sudo apt-get -y autoremove
           sudo apt-get -y clean
-          #sudo apt-get update
-          df -h
+          sudo rm -rf /var/cache/*
           echo "::endgroup::"
-          cd images/linux/
+          echo "::group::spacecheck"
+          df -H -a
+          echo "::endgroup::"
+
+      - name: Build `ubuntu:full-${{ matrix.version }}`
+        run: |
           echo "::group::packer"
-          packer build -var "image_version=$(date +%Y%m%d)" ubuntu${{ matrix.version }}.json
+          /mnt/packer build -var "image_version=$(date +%Y%m%d)" -var "ver=-dev" -var "rev=${{ github.sha }}" ubuntu${{ matrix.version }}.json
           echo "::endgroup::"
+        working-directory: images/linux/
         env:
           GHCR_USERNAME: ${{ github.repository_owner }}
           GHCR_PASSWORD: ${{ github.token }}
-          #DCKR_USERNAME: ${{ secrets.DOCKER_USER }}
-          #DCKR_PASSWORD: ${{ secrets.DOCKER_PASS }}
-          #QUAY_USERNAME: ${{ secrets.QUAY_USER }}
-          #QUAY_PASSWORD: ${{ secrets.QUAY_PASS }}
+          QUAY_USERNAME: ${{ secrets.QUAY_USER }}
+          QUAY_PASSWORD: ${{ secrets.QUAY_PASS }}
+          DCKR_USERNAME: ${{ secrets.DOCKER_USER }}
+          DCKR_PASSWORD: ${{ secrets.DOCKER_PASS }}

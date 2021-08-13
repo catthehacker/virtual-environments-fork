@@ -1,12 +1,12 @@
 | Announcements |
 |-|
-| [[all OS] MongoDB will be updated to version 5 on July, 26th](https://github.com/actions/virtual-environments/issues/3749) |
+| [[macOS, Windows] .NET SDK pre-installation policy will be changed on September, 6](https://github.com/actions/virtual-environments/issues/3809) |
 | [macOS 11.0 pools will be transited to private preview.](https://github.com/actions/virtual-environments/issues/2486) |
 ***
 # macOS 10.15 info
-- System Version: macOS 10.15.7 (19H1217)
+- System Version: macOS 10.15.7 (19H1323)
 - Kernel Version: Darwin 19.6.0
-- Image Version: 20210718.2
+- Image Version: 20210808.1
 
 ## Installed Software
 ### Language and Runtime
@@ -16,37 +16,38 @@
 - Clang/LLVM 12.0.1 is available on `'$(brew --prefix llvm)/bin/clang'`
 - gcc-9 (Homebrew GCC 9.4.0) 9.4.0 - available by `gcc-9` alias
 - gcc-10 (Homebrew GCC 10.3.0) 10.3.0 - available by `gcc-10` alias
-- gcc-11 (Homebrew GCC 11.1.0_1) 11.1.0 - available by `gcc-11` alias
+- gcc-11 (Homebrew GCC 11.2.0) 11.2.0 - available by `gcc-11` alias
 - GNU Fortran (Homebrew GCC 9.4.0) 9.4.0 - available by `gfortran-9` alias
 - GNU Fortran (Homebrew GCC 10.3.0) 10.3.0 - available by `gfortran-10` alias
-- GNU Fortran (Homebrew GCC 11.1.0_1) 11.1.0 - available by `gfortran-11` alias
-- Go 1.15.14
+- GNU Fortran (Homebrew GCC 11.2.0) 11.2.0 - available by `gfortran-11` alias
+- Go 1.15.15
 - julia 1.6.2
+- kotlin 1.5.21-release-314
 - MSBuild 16.6.0.15801 (from /Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/15.0/bin/MSBuild.dll)
-- Node.js v14.17.3
+- Node.js v14.17.4
 - NVM 0.38.0
-- NVM - Cached node versions: v10.24.1 v12.22.3 v14.17.3
+- NVM - Cached node versions: v10.24.1 v12.22.4 v14.17.4
 - Perl 5.34.0
-- PHP 8.0.8
+- PHP 8.0.9
 - Python 2.7.18
 - Python 3.9.6
 - R 4.1.0
 - Ruby 2.7.4p191
 
 ### Package Management
-- Bundler version 2.2.24
+- Bundler version 2.2.25
 - Carthage 0.38.0
-- CocoaPods 1.10.1
-- Composer 2.1.3
-- Homebrew 3.2.2
-- Miniconda 4.9.2
-- NPM 6.14.13
+- CocoaPods 1.10.2
+- Composer 2.1.5
+- Homebrew 3.2.6
+- Miniconda 4.10.3
+- NPM 6.14.14
 - NuGet 5.6.0.6489
 - Pip 20.3.4 (python 2.7)
 - Pip 21.1.3 (python 3.9)
-- Pipx 0.16.3
-- RubyGems 3.2.24
-- Vcpkg 2021 (build from master \<111220b>)
+- Pipx 0.16.4
+- RubyGems 3.2.25
+- Vcpkg 2021 (build from master \<57bd710>)
 - Yarn 1.22.5
 
 #### Environment variables
@@ -67,10 +68,10 @@
 - bazel 4.1.0
 - bazelisk 1.10.1
 - bsdtar 3.3.2 - available by 'tar' alias
-- Curl 7.77.0
+- Curl 7.78.0
 - Git LFS: 2.13.3
 - Git: 2.32.0
-- GitHub CLI: 1.12.1
+- GitHub CLI: 1.14.0
 - GNU parallel 20210622
 - GNU Tar 1.34 - available by 'gtar' alias
 - GNU Wget 1.21.1
@@ -78,68 +79,68 @@
 - helm v3.6.3+gd506314
 - Hub CLI: 2.14.2
 - jq 1.6
-- mongo v4.4.6
-- mongod v4.4.6
+- mongo v5.0.1
+- mongod v5.0.1
 - Newman 5.2.4
 - OpenSSL 1.1.1k  25 Mar 2021 `(/usr/local/opt/openssl -> /usr/local/Cellar/openssl@1.1/1.1.1k)`
-- Packer 1.7.3
+- Packer 1.7.4
 - PostgreSQL 13.3
 - psql (PostgreSQL) 13.3
 - Sox 14.4.2
 - Subversion (SVN) 1.14.1
 - Switchaudio-osx 1.1.0
-- Vagrant 2.2.17
-- virtualbox 6.1.22r144080
+- Vagrant 2.2.18
+- virtualbox 6.1.26r145957
 - zstd 1.5.0
 
 
 ### Tools
-- Aliyun CLI 3.0.81
-- App Center CLI 2.9.0
-- AWS CLI 2.2.20
-- AWS SAM CLI 1.26.0
-- AWS Session Manager CLI 1.2.205.0
-- Azure CLI 2.26.1
-- Bicep CLI 0.4.412
+- Aliyun CLI 3.0.85
+- App Center CLI 2.10.0
+- AWS CLI 2.2.27
+- AWS SAM CLI 1.27.2
+- AWS Session Manager CLI 1.2.234.0
+- Azure CLI 2.27.0
+- Bicep CLI 0.4.451
 - Cabal 3.4.0.0
-- Cmake 3.21.0
-- Fastlane 2.187.0
+- Cmake 3.21.1
+- Fastlane 2.191.0
 - GHC 9.0.1
-- GHCup v0.1.15.2
-- Stack 2.7.1
-- SwiftFormat 0.48.9
+- GHCup v0.1.16.1
+- Stack 2.7.3
+- SwiftFormat 0.48.11
 - Swig 4.0.2
 - Xcode Command Line Tools 12.4.0.0.1.1610135815
 
 ### Linters
 - SwiftLint 0.43.1
-- yamllint 1.26.1
+- yamllint 1.26.2
 
 ### Browsers
-- Safari 14.1.1 (15611.2.7.1.6)
-- SafariDriver 14.1.1 (15611.2.7.1.6)
-- Google Chrome 91.0.4472.164 
-- ChromeDriver 91.0.4472.101
-- Microsoft Edge 91.0.864.67 
-- MSEdgeDriver 91.0.864.70
-- Mozilla Firefox 90.0
+- Safari 14.1.2 (15611.3.10.1.5)
+- SafariDriver 14.1.2 (15611.3.10.1.5)
+- Google Chrome 92.0.4515.131 
+- ChromeDriver 92.0.4515.107
+- Microsoft Edge 92.0.902.67 
+- MSEdgeDriver 92.0.902.67
+- Mozilla Firefox 90.0.2
 - geckodriver 0.29.1
 
 #### Environment variables
 | Name            | Value                                          |
 | --------------- | ---------------------------------------------- |
-| CHROMEWEBDRIVER | /usr/local/Caskroom/chromedriver/91.0.4472.101 |
+| CHROMEWEBDRIVER | /usr/local/Caskroom/chromedriver/92.0.4515.107 |
 | EDGEWEBDRIVER   | /usr/local/share/edge_driver                   |
 | GECKOWEBDRIVER  | /usr/local/opt/geckodriver/bin                 |
 
 ### Java
-| Version              | Vendor        | Environment Variable |
-| -------------------- | ------------- | -------------------- |
-| 8.0.292+10 (default) | Adopt OpenJDK | JAVA_HOME_8_X64      |
-| 11.0.11+9            | Adopt OpenJDK | JAVA_HOME_11_X64     |
-| 12.0.2+10.3          | Adopt OpenJDK | JAVA_HOME_12_X64     |
-| 13.0.2+8.1           | Adopt OpenJDK | JAVA_HOME_13_X64     |
-| 14.0.2+12            | Adopt OpenJDK | JAVA_HOME_14_X64     |
+| Version             | Vendor        | Environment Variable |
+| ------------------- | ------------- | -------------------- |
+| 8.0.302+8 (default) | Adopt OpenJDK | JAVA_HOME_8_X64      |
+| 11.0.12+7           | Adopt OpenJDK | JAVA_HOME_11_X64     |
+| 12.0.2+10.3         | Adopt OpenJDK | JAVA_HOME_12_X64     |
+| 13.0.2+8.1          | Adopt OpenJDK | JAVA_HOME_13_X64     |
+| 14.0.2+12           | Adopt OpenJDK | JAVA_HOME_14_X64     |
 
 ### Cached Tools
 #### Ruby
@@ -164,27 +165,27 @@
 
 #### Node.js
 - 10.24.1
-- 12.22.3
-- 14.17.3
+- 12.22.4
+- 14.17.4
 
 #### Go
 - 1.13.15
 - 1.14.15
-- 1.15.14
-- 1.16.6
+- 1.15.15
+- 1.16.7
 
 ### Rust Tools
-- Cargo 1.53.0
-- Rust 1.53.0
-- Rustdoc 1.53.0
+- Cargo 1.54.0
+- Rust 1.54.0
+- Rustdoc 1.54.0
 - Rustup 1.24.3
 
 #### Packages
-- Bindgen 0.58.1
-- Cargo-audit 0.15.0
+- Bindgen 0.59.1
+- Cargo-audit 0.14.1
 - Cargo-outdated v0.9.17
-- Cbindgen 0.19.0
-- Clippy 0.1.53
+- Cbindgen 0.20.0
+- Clippy 0.1.54
 - Rustfmt 1.4.37-stable
 
 ### PowerShell Tools
@@ -348,7 +349,7 @@
 | Android Emulator           | 30.7.5                                                                                                                                                                                                                          |
 | Android SDK Build-tools    | 31.0.0<br>30.0.0 30.0.1 30.0.2 30.0.3<br>29.0.0 29.0.1 29.0.2 29.0.3<br>28.0.0 28.0.1 28.0.2 28.0.3<br>27.0.0 27.0.1 27.0.2 27.0.3<br>26.0.0 26.0.1 26.0.2 26.0.3<br>25.0.0 25.0.1 25.0.2 25.0.3<br>24.0.0 24.0.1 24.0.2 24.0.3 |
 | Android SDK Platforms      | android-31 (rev 1)<br>android-30 (rev 3)<br>android-29 (rev 5)<br>android-28 (rev 6)<br>android-27 (rev 3)<br>android-26 (rev 2)<br>android-25 (rev 3)<br>android-24 (rev 2)                                                    |
-| Android SDK Platform-Tools | 31.0.2                                                                                                                                                                                                                          |
+| Android SDK Platform-Tools | 31.0.3                                                                                                                                                                                                                          |
 | Android Support Repository | 47.0.0                                                                                                                                                                                                                          |
 | CMake                      | 3.10.2<br>3.18.1                                                                                                                                                                                                                |
 | Google APIs                | addon-google_apis-google-21<br>addon-google_apis-google-22<br>addon-google_apis-google-23<br>addon-google_apis-google-24                                                                                                        |

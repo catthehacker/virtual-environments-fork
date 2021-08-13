@@ -2,77 +2,49 @@
     "toolcache": [
         {
             "name": "Python",
-            "url" : "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
-            "platform" : "linux",
+            "url": "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
+            "platform": "linux",
             "platform_version": "18.04",
             "arch": "x64",
-            "versions": [
-                "2.7.*",
-                "3.5.*",
-                "3.6.*",
-                "3.7.*",
-                "3.8.*",
-                "3.9.*"
-            ]
+            "versions": ["2.7.*", "3.5.*", "3.6.*", "3.7.*", "3.8.*", "3.9.*"]
         },
         {
             "name": "PyPy",
             "arch": "x64",
-            "platform" : "linux",
-            "versions": [
-                "2.7",
-                "3.6"
-            ]
+            "platform": "linux",
+            "versions": ["2.7", "3.6"]
         },
         {
             "name": "node",
-            "url" : "https://raw.githubusercontent.com/actions/node-versions/main/versions-manifest.json",
-            "platform" : "linux",
+            "url": "https://raw.githubusercontent.com/actions/node-versions/main/versions-manifest.json",
+            "platform": "linux",
             "arch": "x64",
-            "versions": [
-                "10.*",
-                "12.*",
-                "14.*"
-            ]
+            "versions": ["10.*", "12.*", "14.*"]
         },
         {
             "name": "go",
-            "url" : "https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json",
+            "url": "https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json",
             "arch": "x64",
-            "platform" : "linux",
-            "versions": [
-                "1.13.*",
-                "1.14.*",
-                "1.15.*"
-            ],
+            "platform": "linux",
+            "versions": ["1.13.*", "1.14.*", "1.15.*"],
             "default": "1.15.*"
         },
         {
             "name": "Ruby",
             "platform_version": "18.04",
             "arch": "x64",
-            "versions": [
-                "2.4.*",
-                "2.5.*",
-                "2.6.*",
-                "2.7.*",
-                "3.0.*"
-            ]
+            "versions": ["2.4.*", "2.5.*", "2.6.*", "2.7.*", "3.0.*"]
         },
         {
             "name": "CodeQL",
-            "platform" : "linux",
+            "platform": "linux",
             "arch": "x64",
-            "versions": [
-                "*"
-            ]
+            "versions": ["*"]
         }
     ],
     "java": {
         "default": "8",
-        "versions": [
-            "8", "11", "12"
-        ],
+        "versions": ["8", "11", "12"],
         "maven": "3.8.1"
     },
     "android": {
@@ -89,30 +61,18 @@
             "addon-google_apis-google-22",
             "addon-google_apis-google-21"
         ],
-        "additional_tools": [
-            "cmake;3.10.2.4988404",
-            "cmake;3.18.1"
-        ],
+        "additional_tools": ["cmake;3.10.2.4988404", "cmake;3.18.1"],
         "ndk": {
             "lts": "21"
         }
     },
-    "powershellModules": [
-        {"name": "MarkdownPS"},
-        {"name": "Pester"}
-    ],
+    "powershellModules": [{ "name": "MarkdownPS" }, { "name": "Pester" }],
     "azureModules": [
         {
             "name": "az",
-            "url" : "https://raw.githubusercontent.com/Azure/az-ps-module-versions/main/versions-manifest.json",
-            "versions": [
-                "6.1.0"
-            ],
-            "zip_versions": [
-                "3.1.0",
-                "4.4.0",
-                "5.9.0"
-            ]
+            "url": "https://raw.githubusercontent.com/Azure/az-ps-module-versions/main/versions-manifest.json",
+            "versions": ["6.1.0"],
+            "zip_versions": ["3.1.0", "4.4.0", "5.9.0"]
         }
     ],
     "apt": {
@@ -194,28 +154,9 @@
             "zip"
         ]
     },
-    "brew": [
-        {"name": "zstd"}
-    ],
+    "brew": [{ "name": "zstd" }],
     "docker": {
-        "images": [
-            "alpine:3.11",
-            "alpine:3.12",
-            "alpine:3.13",
-            "buildpack-deps:stretch",
-            "buildpack-deps:buster",
-            "debian:9",
-            "debian:10",
-            "node:10",
-            "node:12",
-            "node:14",
-            "node:10-alpine",
-            "node:12-alpine",
-            "node:14-alpine",
-            "ubuntu:16.04",
-            "ubuntu:18.04",
-            "ubuntu:20.04"
-        ]
+        "images": []
     },
     "pipx": [
         {
@@ -228,42 +169,21 @@
         }
     ],
     "dotnet": {
-        "aptPackages": [
-            "dotnet-sdk-3.1",
-            "dotnet-sdk-5.0"
-        ],
-        "versions": [
-            "2.1",
-            "3.1",
-            "5.0"
-        ]
+        "aptPackages": ["dotnet-sdk-3.1", "dotnet-sdk-5.0"],
+        "versions": ["2.1", "3.1", "5.0"]
     },
     "clang": {
-        "versions": [
-            "9"
-        ],
+        "versions": ["9"],
         "default_version": "9"
     },
     "gcc": {
-        "versions": [
-            "g++-9",
-            "g++-10"
-        ]
+        "versions": ["g++-9", "g++-10"]
     },
     "gfortran": {
-        "versions": [
-            "gfortran-9",
-            "gfortran-10"
-        ]
+        "versions": ["gfortran-9", "gfortran-10"]
     },
     "php": {
-        "versions": [
-            "7.1",
-            "7.2",
-            "7.3",
-            "7.4",
-            "8.0"
-        ]
+        "versions": ["7.1", "7.2", "7.3", "7.4", "8.0"]
     },
     "rubygems": [],
     "node_modules": [

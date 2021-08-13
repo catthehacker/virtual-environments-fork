@@ -18,10 +18,12 @@ rm -rf "$INSTALLER_SCRIPT_FOLDER"
 chmod 755 "$IMAGE_FOLDER"
 
 # Remove quotes around PATH
-ENVPATH=$(grep 'PATH=' /etc/environment | head -n 1 | sed -z 's/^PATH=*//')
-ENVPATH=${ENVPATH#"\""}
-ENVPATH=${ENVPATH%"\""}
-echo "PATH=$ENVPATH" | sudo tee -a /etc/environment
+# ENVPATH=$(grep 'PATH=' /etc/environment | head -n 1 | sed -z 's/^PATH=*//')
+# ENVPATH=${ENVPATH#"\""}
+# ENVPATH=${ENVPATH%"\""}
+# echo "PATH=$ENVPATH" | sudo tee -a /etc/environment
+sed 's|"||g' -i "/etc/environment"
+sed "s|\$HOME|/home/runner|g" -i "/etc/environment"
 echo "Updated /etc/environment: $(cat /etc/environment)"
 
 # Clean yarn and npm cache

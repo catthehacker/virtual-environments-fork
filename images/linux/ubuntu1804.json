@@ -7,6 +7,7 @@
         "image_version": "dev",
         "image_os": "ubuntu18",
         "run_validation_diskspace": "false",
+        "rev": "master",
         "dockerhub_username": "{{env `DCKR_USERNAME`}}",
         "dockerhub_password": "{{env `DCKR_PASSWORD`}}",
         "quay_username": "{{env `QUAY_USERNAME`}}",
@@ -29,14 +30,24 @@
             "image": "ghcr.io/catthehacker/ubuntu:runner-18.04",
             "discard": false,
             "commit": true,
-            "pull": false,
+            "pull": true,
             "privileged": true,
             "volumes": {
                 "/var/run/docker.sock": "/var/run/docker.sock"
             },
-            "author": "https://github.com/{{user `ghcr_username`}}",
+            "author": "https://github.com/catthehacker",
             "fix_upload_owner": true,
-            "changes": ["WORKDIR /tmp"]
+            "changes": [
+                "WORKDIR /tmp",
+                "ENTRYPOINT /bin/bash",
+                "LABEL org.opencontainers.image.authors=https://github.com/catthehacker",
+                "LABEL org.opencontainers.image.revision={{user `rev`}}",
+                "LABEL org.opencontainers.image.source=https://github.com/catthehacker/virtual-environments-fork",
+                "LABEL org.opencontainers.image.title=full-18.04-amd64",
+                "LABEL org.opencontainers.image.url=https://github.com/catthehacker/virtual-environments-fork/tree/{{user `rev`}}/images/linux",
+                "LABEL org.opencontainers.image.vendor=catthehacker",
+                "LABEL org.opencontainers.image.version={{user `rev`}}"
+            ]
         }
     ],
     "post-processors": [
@@ -44,13 +55,39 @@
             {
                 "type": "docker-tag",
                 "repository": "ghcr.io/catthehacker/ubuntu",
-                "tags": ["full-18.04", "full-18.04-{{user `image_version`}}"]
+                "tags": ["full-18.04"]
             },
             {
                 "type": "docker-push",
                 "login_username": "{{user `ghcr_username`}}",
                 "login_password": "{{user `ghcr_password`}}",
                 "login_server": "ghcr.io"
+            }
+        ],
+        [
+            {
+                "type": "docker-tag",
+                "repository": "quay.io/catthehacker/ubuntu",
+                "tags": ["full-18.04"]
+            },
+            {
+                "type": "docker-push",
+                "login_username": "{{user `quay_username`}}",
+                "login_password": "{{user `quay_password`}}",
+                "login_server": "quay.io"
+            }
+        ],
+        [
+            {
+                "type": "docker-tag",
+                "repository": "dockerr.io/catthehacker/ubuntu",
+                "tags": ["full-18.04"]
+            },
+            {
+                "type": "docker-push",
+                "login_username": "{{user `dockerhub_username`}}",
+                "login_password": "{{user `dockerhub_password`}}",
+                "login_server": "docker.io"
             }
         ]
     ],
